@@ -1,0 +1,28 @@
+name: Type check
+
+on: workflow_call
+
+jobs:
+  typecheck:
+    name: ${{ matrix.service }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [back, front]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: ${{ matrix.service }}/package-json.lock
+
+      - name: Install deps
+        working-directory: ${{ matrix.service }}
+        run: npm ci
+
+      - name: Type check
+        working-directory: ${{ matrix.service }}
+        run: npx tsc --noEmit
