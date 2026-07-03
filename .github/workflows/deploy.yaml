@@ -57,8 +57,8 @@ jobs:
           script: |
             cd /var/www/todo
             sed -i "s|^APP_VERSION=.*|APP_VERSION=sha-${{ github.sha }}|" .env.development.compose
-            docker compose pull back front
-            docker compose up -d --no-deps back front
+            docker compose --env-file .env.development.compose pull
+            docker compose --env-file .env.development.compose up -d --no-deps back front
 
   notify:
     needs: [checks, build, deploy]
