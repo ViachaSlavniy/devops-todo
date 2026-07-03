@@ -20,8 +20,8 @@ jobs:
             vite-api-url: https://v1smolensky.xyz/api
       fail-fast: false
     env:
-      IMAGE_SHA_NAME: '${{ vars.DOCKER_USER }}/todo-${{ matrix.service }}:${{ github.sha }}'
-      IMAGE_LATEST_NAME: '${{ vars.DOCKER_USER }}/todo-${{ matrix.service }}:latest'
+      IMAGE_SHA_NAME: '${{ vars.DOCKER_USERNAME }}/todo-${{ matrix.service }}:${{ github.sha }}'
+      IMAGE_LATEST_NAME: '${{ vars.DOCKER_USERNAME }}/todo-${{ matrix.service }}:latest'
     steps:
       - uses: actions/checkout@v4
 
@@ -37,7 +37,7 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v4
         with:
-          username: ${{ vars.DOCKER_USER }}
+          username: ${{ vars.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASS }}
 
       - name: Push to Docker Hub
