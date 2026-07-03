@@ -28,9 +28,9 @@ jobs:
       - name: Build Docker images
         run: |
           if [[ ${{ matrix.service }} == "front" ]]; then
-            docker build --build-arg VITE_API_URL=${{ matrix.vite-api-url }} -t $IMAGE_SHA_NAME -t $IMAGE_LATEST_NAME .
+            docker build --build-arg VITE_API_URL=${{ matrix.vite-api-url }} -t $IMAGE_SHA_NAME -t $IMAGE_LATEST_NAME ${{ matrix.service }}
           else
-            docker build -t $IMAGE_SHA_NAME -t $IMAGE_LATEST_NAME .
+            docker build -t $IMAGE_SHA_NAME -t $IMAGE_LATEST_NAME ${{ matrix.service }}
           fi
           
 
